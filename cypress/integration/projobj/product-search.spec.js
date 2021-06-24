@@ -17,11 +17,32 @@ context('Product search', () => {
     })
 
     it('user clicks \'search many \' button and pick \'add another\'', () => {
+        cy.get('button').contains('Search many').click()
+        cy.get('.modal-dialog').should('be.visible').then(($dialog)=>{
+            cy.wrap($dialog).find('button').contains("Add another").click()
+            cy.wrap($dialog).find('input[name="dialoganother2"]').should('exist')
+        })
+    })
 
+    it('user clicks \'search many \' button and pick \'cancel\'', () => {
+        cy.get('button').contains('Search many').click()
+        cy.get('.modal-dialog').should('be.visible').then(($dialog)=>{
+            cy.wrap($dialog).find('button').contains("Cancel").click()
+        })
+        cy.location('pathname').should('eq', 'http://localhost:3000/search-products')
     })
 
     it('user clicks \'search many \' button,enters two existing products name and submit', () => {
-
+        cy.get('button').contains('Search many').click()
+        cy.get('.modal-dialog').should('be.visible').then(($dialog)=>{
+            cy.wrap($dialog).find('button').contains("Add another").click()
+            cy.wrap($dialog).find('input[name="dialoganother1"]').should('have.value', 'productName').type('productName')
+            cy.wrap($dialog).find('input[name="dialoganother2"]').should('exist').type('productName2')
+            cy.get('button').contains('Search').click()
+        })
+        cy.get('.modal-dialog').should('not.be.visible')
+        cy.get('div.products').contains("productName")
+        cy.get('div.products').contains("productName2")
     })
 
 })
