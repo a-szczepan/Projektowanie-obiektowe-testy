@@ -3,7 +3,7 @@ context('Buy products', () => {
         cy.visit('http://localhost:3000/orderId')
     })
 
-    it('user enters correct order data and submits ', () => {
+    it('logged user enters correct order data and submits ', () => {
         cy.get('input[name="firstName"]').type('firstName').should('have.value', 'firstName')
         cy.get('input[name="lastName"]').type('lastName').should('have.value', 'lastName')
         cy.get('input[name="addres"]').type('addres').should('have.value', 'addres')
@@ -13,7 +13,7 @@ context('Buy products', () => {
         cy.location('pathname').should('eq', 'http://localhost:3000/orderSummary')
     })
 
-    it('user increases product quantity', () => {
+    it('logged user increases product quantity', () => {
         cy.get('div.products.productName').should('have.text',"productName")
         cy.get('div.products.productName.quantity').should('have.text',"quantity: 1")
         cy.get('div.products.productName.price').should('have.text',"price: $40")
@@ -23,7 +23,7 @@ context('Buy products', () => {
         cy.get('div.products.totalPrice').should('have.text',"total: $80")
     })
 
-    it('user deletes product from order', () => {
+    it('logged user deletes product from order', () => {
         cy.get('div.products.productName').should('have.text',"productName")
         cy.get('div.products.productName.price').should('have.text',"price: $20")
         cy.get('div.products.productName.quantity').should('have.text',"quantity: 1")
@@ -36,7 +36,7 @@ context('Buy products', () => {
         cy.get('div.products.totalPrice').should('have.text',"total: $30")
     })
 
-    it('user leaves first name field empty (required) ', () => {
+    it('logged user leaves first name field empty (required) ', () => {
         cy.get('input[name="firstName"]').should('have.value', 'firstName')
         cy.get('input[name="lastName"]').type('lastName').should('have.value', 'lastName')
         cy.get('input[name="addres"]').type('addres').should('have.value', 'addres')
@@ -49,7 +49,7 @@ context('Buy products', () => {
         })
     })
 
-    it('user enters discount code', () => {
+    it('logged user enters discount code', () => {
         cy.get('div.products.productName').should('have.text',"productName")
         cy.get('div.products.productName.quantity').should('have.text',"quantity: 1")
         cy.get('div.products.productName.price').should('have.text',"price: $40")
